@@ -1,9 +1,7 @@
-// app/components/Navbar.js
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,11 +33,6 @@ export default function Navbar() {
           Contact
         </Link>
       </li>
-      {/* <li className="md:inline-block">
-        <Link href="/testimonials" className="block py-2 md:py-2 md:px-4">
-          Testimonials
-        </Link>
-      </li> */}
     </>
   );
 
@@ -90,12 +83,14 @@ export default function Navbar() {
             </button>
           </div>
           {/* Menu Items */}
-          <ul
-            className={`${
-              isMenuOpen ? 'block' : 'hidden'
-            } md:flex md:justify-center`}
-          >
-            {menuItems}
+          <ul className="md:flex md:justify-center md:items-center w-full relative">
+            <div className="md:flex md:gap-6">{menuItems}</div>
+            {/* Wish List aligned to the far right */}
+            <li className="absolute right-0">
+              <Link href="/wishlist" className="flex items-center gap-2">
+                ❤️ Wish List
+              </Link>
+            </li>
           </ul>
         </div>
       </div>

@@ -15,8 +15,10 @@
     "daisyui": "^4.12.10",
     "next": "14.2.13",
     "next-sanity": "^9.8.25",
+    "nodemailer": "^6.10.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-hot-toast": "^2.5.2",
     "sanity": "^3.66.1",
     "styled-components": "^6.1.13"
   },

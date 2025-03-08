@@ -26,9 +26,9 @@ export default function Footer() {
           Registered Company Number: 2826786 - VAT Registration Number: 623166067
         </p>
       </aside>
-      <nav>
+      {/* <nav>
         <h6 className="footer-title">Services</h6>
-        <Link href="/services" className="link link-hover">
+        <Link href="/designs" className="link link-hover">
           Design
         </Link>
         <Link href="/services" className="link link-hover">
@@ -40,7 +40,7 @@ export default function Footer() {
         <Link href="/services" className="link link-hover">
           Consultation
         </Link>
-      </nav>
+      </nav> */}
       <nav>
         <h6 className="footer-title">Company</h6>
         <Link href="/about" className="link link-hover">
@@ -49,9 +49,9 @@ export default function Footer() {
         <Link href="/contact" className="link link-hover">
           Contact
         </Link>
-        <Link href="/news" className="link link-hover">
+        {/* <Link href="/news" className="link link-hover">
           News
-        </Link>
+        </Link> */}
       </nav>
       <nav>
         <h6 className="footer-title">Legal</h6>
@@ -60,9 +60,6 @@ export default function Footer() {
         </Link>
         <Link href="/privacy" className="link link-hover">
           Privacy Policy
-        </Link>
-        <Link href="/cookies" className="link link-hover">
-          Cookie Policy
         </Link>
       </nav>
     </footer>
