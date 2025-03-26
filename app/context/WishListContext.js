@@ -8,14 +8,23 @@ export function WishListProvider({ children }) {
   const [WishList, setWishList] = useState([]);
 
   useEffect(() => {
-    const storedWishList = localStorage.getItem("WishList");
-    if (storedWishList) {
-      setWishList(JSON.parse(storedWishList));
+    try {
+      const storedWishList = localStorage.getItem("WishList");
+      if (storedWishList) {
+        setWishList(JSON.parse(storedWishList));
+      }
+    } catch (error) {
+      console.error('Error loading wishlist from localStorage:', error);
+      setWishList([]);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("WishList", JSON.stringify(WishList));
+    try {
+      localStorage.setItem("WishList", JSON.stringify(WishList));
+    } catch (error) {
+      console.error('Error saving wishlist to localStorage:', error);
+    }
   }, [WishList]);
 
   const addToWishList = (product) => {
@@ -38,5 +47,9 @@ export function WishListProvider({ children }) {
 }
 
 export function useWishList() {
-  return useContext(WishListContext);
+  const context = useContext(WishListContext);
+  if (context === undefined) {
+    throw new Error('useWishList must be used within a WishListProvider');
+  }
+  return context;
 }
