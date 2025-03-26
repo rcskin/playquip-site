@@ -1,9 +1,7 @@
-// app/components/Navbar.js
+"use client";
 
-'use client';
-
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,11 +33,6 @@ export default function Navbar() {
           Contact
         </Link>
       </li>
-      {/* <li className="md:inline-block">
-        <Link href="/testimonials" className="block py-2 md:py-2 md:px-4">
-          Testimonials
-        </Link>
-      </li> */}
     </>
   );
 
@@ -52,9 +45,11 @@ export default function Navbar() {
             src="/images/playquip_logo.jpg"
             alt="Playquip Logo"
             className="h-12"
+            data-testid="logo"
           />
         </Link>
       </div>
+
       {/* Navigation Menu */}
       <div className="border-t">
         <div className="container mx-auto px-4">
@@ -63,6 +58,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-800 focus:outline-none"
+              data-testid="mobile-menu-button"
             >
               <svg
                 className="w-6 h-6"
@@ -89,13 +85,23 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
+
           {/* Menu Items */}
-          <ul
-            className={`${
-              isMenuOpen ? 'block' : 'hidden'
-            } md:flex md:justify-center`}
-          >
-            {menuItems}
+          <ul className="md:flex md:justify-center md:items-center w-full relative">
+            {/* Mobile menu toggling */}
+            <div 
+              className={`md:flex md:gap-6 ${isMenuOpen ? "block" : "hidden"} md:block`}
+              data-testid="mobile-menu"
+            >
+              {menuItems}
+            </div>
+
+            {/* Wish List aligned to the far right on desktop, inside menu on mobile */}
+            <li className={`md:absolute md:right-0 ${isMenuOpen ? "block" : "hidden"} md:block`}>
+              <Link href="/wishlist" className="flex items-center gap-2" data-testid="wishlist-link">
+                Wish List
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
