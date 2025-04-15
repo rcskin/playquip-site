@@ -1,37 +1,62 @@
+//components/ImageGallery.js
 "use client";
 
 import { useState } from "react";
 import Image from "next/image";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function ImageGallery({ mainImage, galleryImages, alt }) {
-  const validGalleryImages = galleryImages || [];
-  const allImages = [mainImage, ...validGalleryImages.map((img) => img.url)];
+  const allImages = [
+    urlFor(mainImage).width(1200).url(),
+    ...(galleryImages || []).map((img) => urlFor(img).width(1200).url()),
+  ];
 
-  const [currentImage, setCurrentImage] = useState(mainImage);
+  const [currentImage, setCurrentImage] = useState(allImages[0]);
 
-  console.log("Gallery Images in Component:", validGalleryImages); // Debugging
+  // Track loading for the main image
+  const [isImageLoading, setIsImageLoading] = useState(true);
+
+  console.log("Gallery Images in Component:", allImages); // Debugging
 
   return (
     <div>
       {/* Main Image */}
-      <div data-testid="main-image-container" className="mb-4 w-full max-w-[800px] h-[500px] relative">
+      <div
+        data-testid="main-image-container"
+        className="mb-4 w-full max-w-[800px] h-[500px] relative"
+      >
         <Image
           src={currentImage}
           alt={alt}
-          layout="fill"
-          className="rounded-lg shadow-lg object-cover"
+          fill
+          className={`
+            rounded-lg shadow-lg object-cover 
+            transition-opacity duration-500
+            ${isImageLoading ? "opacity-0" : "opacity-100"}
+          `}
+          // When the image finishes loading, hide skeleton
+          onLoadingComplete={() => setIsImageLoading(false)}
         />
+
+        {/* Skeleton Placeholder (DaisyUI) */}
+        {isImageLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-base-100 rounded-lg">
+            <span className="loading loading-spinner loading-lg text-primary"></span>
+          </div>
+        )}
       </div>
 
       {/* Gallery Thumbnails */}
       {allImages.length > 1 && (
         <div className="flex gap-2">
-          {allImages.map((img, index) => (
+          {allImages.map((imgUrl, index) => (
             <div
               key={index}
               data-testid="thumbnail-container"
               className={`cursor-pointer p-1 rounded-md border bg-white ${
-                currentImage === img ? "border-blue-500 shadow-md" : "border-gray-300"
+                currentImage === imgUrl
+                  ? "border-blue-500 shadow-md"
+                  : "border-gray-300"
               }`}
               style={{
                 width: "120px",
@@ -41,7 +66,7 @@ export default function ImageGallery({ mainImage, galleryImages, alt }) {
                 justifyContent: "center",
                 position: "relative",
               }}
-              onClick={() => setCurrentImage(img)}
+              onClick={() => setCurrentImage(imgUrl)}
             >
               <div
                 style={{
@@ -51,10 +76,9 @@ export default function ImageGallery({ mainImage, galleryImages, alt }) {
                 }}
               >
                 <Image
-                  src={img}
+                  src={imgUrl}
                   alt={`${alt} Thumbnail ${index + 1}`}
-                  width={120}
-                  height={90}
+                  fill
                   className="object-cover w-full h-full"
                 />
               </div>

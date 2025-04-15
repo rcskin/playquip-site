@@ -1,8 +1,10 @@
+// app/products/[umbrellaSlug]/[categorySlug]/[productSlug]/ProductDetailClient.js
 "use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import ImageGallery from "@/components/ImageGallery";
+import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
 import { useWishList } from "@/app/context/WishListContext";
 import toast from "react-hot-toast";
@@ -68,8 +70,8 @@ export default function ProductDetailClient({ product, matchingCategory }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           <div>
             <ImageGallery
-              mainImage={product.mainImage.url}
-              galleryImages={product.galleryImages || []}
+              mainImage={product.mainImage}
+              galleryImages={product.galleryImages}
               alt={product.title}
             />
           </div>
@@ -89,7 +91,7 @@ export default function ProductDetailClient({ product, matchingCategory }) {
         </div>
 
         {/* Description */}
-        <div className="max-w-6xl mx-auto text-gray-700 text-lg leading-relaxed">
+        <div className="max-w-6xl text-gray-700 text-lg leading-relaxed">
           <h2 className="text-3xl font-semibold text-gray-800 mb-5">
             Description
           </h2>
@@ -100,30 +102,35 @@ export default function ProductDetailClient({ product, matchingCategory }) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           {/* Specifications Table */}
           <div>
-            <h2 className="text-3xl font-semibold text-blue-600 mb-6">
-              Specifications
-            </h2>
-            <table className="w-full border-collapse border border-gray-300 rounded-lg">
-              <tbody>
-                {product.specifications?.map((spec) => (
-                  <tr key={spec._key} className="border-b">
-                    <td className="py-3 px-4 font-medium text-gray-600 border-r">
-                      {spec.specName}
-                    </td>
-                    <td className="py-3 px-4 text-gray-700">
-                      {spec.specValue}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {/* Only show heading/table if `specifications` is a non-empty array */}
+            {product.specifications?.length > 0 && (
+              <>
+                <h2 className="text-3xl font-semibold text-blue-600 mb-6">
+                  Specifications
+                </h2>
+                <table className="w-full border-collapse border border-gray-300 rounded-lg">
+                  <tbody>
+                    {product.specifications?.map((spec) => (
+                      <tr key={spec._key} className="border-b">
+                        <td className="py-3 px-4 font-medium text-gray-600 border-r">
+                          {spec.specName}
+                        </td>
+                        <td className="py-3 px-4 text-gray-700">
+                          {spec.specValue}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            )}
           </div>
 
           {/* Spec Image */}
-          {product.specImage?.url && (
+          {product.specImage && (
             <div>
               <Image
-                src={product.specImage.url}
+                src={urlFor(product.specImage).width(600).height(400).url()}
                 alt={`${product.title} Specification`}
                 width={600}
                 height={400}

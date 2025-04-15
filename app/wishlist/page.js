@@ -5,6 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { urlFor } from "@/sanity/lib/image";
 
 export default function WishList() {
   const { WishList, removeFromWishList, clearWishList } = useWishList();
@@ -88,7 +89,7 @@ export default function WishList() {
               <li key={item.slug} className="flex items-center justify-between border-b pb-4">
                 <div className="flex items-center gap-4">
                   <Image
-                    src={item.mainImage.url}
+                    src={urlFor(item.mainImage).width(100).height(100).url()}
                     alt={item.title}
                     width={100}
                     height={100}

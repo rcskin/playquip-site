@@ -1,3 +1,5 @@
+//about page
+ 
 import Image from "next/image";
 
 export const metadata = {

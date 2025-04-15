@@ -1,22 +1,19 @@
+//app/products/[umbrellaSlug]/[categorySlug]/[productSlug]/page.js
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/lib/client.js";
 import ProductDetailClient from "./ProductDetailClient"; 
+
+export const revalidate = 60;
 
 const productQuery = `
   *[_type == "product" && slug.current == $productSlug][0]{
     title,
     "slug": slug.current,
-    mainImage{
-      "url": asset->url
-    },
-    galleryImages[]{
-      "url": asset->url
-    },
+    mainImage,
+    galleryImages,
     threeDModelUrl,
     description,
-    specImage{
-      "url": asset->url
-    },
+    specImage,
     specifications[],
     downloads[]{
       title,
@@ -34,6 +31,7 @@ const productQuery = `
     }
   }
 `;
+
 
 export default async function ProductDetailPage({ params }) {
   const { umbrellaSlug, categorySlug, productSlug } = params;

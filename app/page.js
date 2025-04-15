@@ -3,26 +3,30 @@
 export default function Home() {
   return (
     <main className="min-h-screen bg-base-200">
-      {/* Hero Section */}
-      <div
-        data-testid="hero-section"
-        className="hero min-h-screen"
-        style={{ backgroundImage: `url('/images/hero-picture.jpg')` }}
-      >
-        <div data-testid="hero-overlay" className="hero-overlay bg-opacity-60"></div>
-        <div data-testid="hero-content" className="hero-content text-center text-neutral-content">
-          <div data-testid="hero-content-container" className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Welcome to Playquip</h1>
-            <p className="mb-5">
-              Premium quality playground equipment for kids of all ages.
-            </p>
-            {/* <button className="btn btn-primary">Get Started</button> */}
-          </div>
-        </div>
+  {/* Hero Section */}
+  <div
+    className="hero min-h-screen"
+    style={{ backgroundImage: `url('/images/hero-picture.jpg')` }}
+  >
+    {/* Optional minimal overlay if client wants a slight dim effect on the image?? */}
+    <div className="hero-overlay bg-black/10"></div>
+
+    <div className="hero-content text-center">
+      {/* Semi-opaque box for text */}
+      <div className="inline-block bg-white/90 text-blue-950 p-8 rounded-md shadow-lg max-w-4xl w-full">
+        <h1 className="mb-5 text-6xl font-bold">
+          Welcome to Playquip
+        </h1>
+        <p className="mb-5 text-3xl">
+          Premium quality playground equipment for kids of all ages.
+        </p>
+        {/* <button className="btn btn-primary">Get Started</button> */}
       </div>
+    </div>
+  </div>
 
       {/* Info Section */}
-      <section data-testid="info-section" className="bg-blue-900 text-white py-12">
+      <section data-testid="info-section" className="bg-blue-950 text-white py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-4 text-center">
             About Playquip Leisure

@@ -4,8 +4,13 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client.js";
+import { urlFor } from "@/sanity/lib/image"; // importing Sanity's image utility
 import { PortableText } from "@portabletext/react";
 
+// Revalidate this page every 60 seconds
+export const revalidate = 60;
+
+// Updated query to pull the raw image field instead of hardcoding the asset URL
 const umbrellaWithCategoriesQuery = `
   *[_type == "umbrellaCategory" && slug.current == $slug][0]{
     title,
@@ -14,7 +19,7 @@ const umbrellaWithCategoriesQuery = `
     categories[]->{
       title,
       "slug": slug.current,
-      "imageUrl": image.asset->url
+      image
     }
   }
 `;
@@ -22,24 +27,15 @@ const umbrellaWithCategoriesQuery = `
 export default async function UmbrellaCategoryPage({ params }) {
   const { umbrellaSlug } = params;
 
-  console.log("Fetching umbrella category with slug:", umbrellaSlug);
+  // Standard fetch with ISR (no custom caching flags needed)
+  const umbrellaCategory = await client.fetch(umbrellaWithCategoriesQuery, {
+    slug: umbrellaSlug,
+  });
 
-  try {
-    const umbrellaCategory = await client.fetch(
-      umbrellaWithCategoriesQuery,
-      { slug: umbrellaSlug },
-      { cache: "no-cache" }
-    );
-
-    console.log(
-      "Fetched Umbrella Category:",
-      JSON.stringify(umbrellaCategory, null, 2)
-    );
-
-    if (!umbrellaCategory) {
-      console.error("Umbrella category not found:", umbrellaSlug);
-      notFound();
-    }
+  // If no matching content found, trigger Next.js 404 page
+  if (!umbrellaCategory) {
+    notFound();
+  }
 
     return (
       <main className="min-h-screen bg-base-200">
@@ -57,17 +53,17 @@ export default async function UmbrellaCategoryPage({ params }) {
         </div>
 
         <section className="container mx-auto px-4 py-8">
-          {/* Enhanced Title */}
-          <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-8 text-blue-950">
-            {umbrellaCategory.title}
-          </h1>
+        {/* Umbrella category title */}
+        <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-8 text-blue-950">
+          {umbrellaCategory.title}
+        </h1>
 
-          {/* Enhanced Description */}
-          {umbrellaCategory.description && (
-            <div className="bg-blue-950 text-gray-300 text-xl text-center rounded-lg px-6 py-4 mb-8 shadow-md">
-              <PortableText value={umbrellaCategory.description} />
-            </div>
-          )}
+          {/* Optional portable text description */}
+        {umbrellaCategory.description && (
+          <div className="bg-blue-950 text-gray-300 text-xl text-center rounded-lg px-6 py-4 mb-8 shadow-md">
+            <PortableText value={umbrellaCategory.description} />
+          </div>
+        )}
           {/* Scroll Indicator */}
           <div className="text-center mb-6">
             <span className="text-gray-600 animate-bounce">
@@ -75,17 +71,18 @@ export default async function UmbrellaCategoryPage({ params }) {
             </span>
           </div>
 
-          {/* Product Grid */}
+          {/* Grid of subcategories */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {umbrellaCategory.categories?.map((cat) => (
               <div key={cat.slug} className="card bg-base-100 shadow-xl">
                 <figure className="h-48 overflow-hidden relative">
-                  {cat.imageUrl && (
+                  {cat.image && (
                     <Image
-                      src={cat.imageUrl}
-                      alt={cat.title}
+                    src={urlFor(cat.image).width(600).height(400).fit("crop").url()}
+                    alt={cat.title}
                       fill
                       className="object-cover w-full h-full"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   )}
                 </figure>
@@ -106,8 +103,4 @@ export default async function UmbrellaCategoryPage({ params }) {
         </section>
       </main>
     );
-  } catch (error) {
-    console.error("Error fetching umbrella category data:", error);
-    notFound();
   }
-}

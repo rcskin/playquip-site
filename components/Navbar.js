@@ -9,27 +9,27 @@ export default function Navbar() {
   const menuItems = (
     <>
       <li className="md:inline-block">
-        <Link href="/about" className="block py-2 md:py-2 md:px-4">
+        <Link href="/about" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
           About Us
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/products" className="block py-2 md:py-2 md:px-4">
+        <Link href="/products" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
           Products
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/services" className="block py-2 md:py-2 md:px-4">
+        <Link href="/services" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
           Services
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/designs" className="block py-2 md:py-2 md:px-4">
+        <Link href="/designs" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
           Designs
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/contact" className="block py-2 md:py-2 md:px-4">
+        <Link href="/contact" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
           Contact
         </Link>
       </li>
@@ -39,7 +39,7 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md">
       {/* Logo Section */}
-      <div className="container mx-auto px-4 py-4 flex justify-center">
+      <div className="container mx-auto px-8 py-8 flex justify-center">
         <Link href="/">
           <img
             src="/images/playquip_logo.jpg"
@@ -87,7 +87,7 @@ export default function Navbar() {
           </div>
 
           {/* Menu Items */}
-          <ul className="md:flex md:justify-center md:items-center w-full relative">
+          <ul className="md:flex md:justify-center md:items-center w-full relative text-blue-950">
             {/* Mobile menu toggling */}
             <div 
               className={`md:flex md:gap-6 ${isMenuOpen ? "block" : "hidden"} md:block`}
@@ -98,7 +98,7 @@ export default function Navbar() {
 
             {/* Wish List aligned to the far right on desktop, inside menu on mobile */}
             <li className={`md:absolute md:right-0 ${isMenuOpen ? "block" : "hidden"} md:block`}>
-              <Link href="/wishlist" className="flex items-center gap-2" data-testid="wishlist-link">
+              <Link href="/wishlist" className="flex items-center gap-2 text-xl text-blue-950 font-semibold" data-testid="wishlist-link">
                 Wish List
               </Link>
             </li>

@@ -4,7 +4,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client.js";
+import { urlFor } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
+
+// Revalidate page every 60 seconds for freshness
+export const revalidate = 60;
 
 const categoryQuery = `
   *[_type == "category" && slug.current == $slug][0]{
@@ -18,9 +22,7 @@ const categoryQuery = `
     products[]->{
       title,
       "slug": slug.current,
-      mainImage{
-        "url": asset->url
-      }
+      mainImage
     }
   }
 `;
@@ -30,19 +32,13 @@ export default async function CategoryPage({ params }) {
 
   console.log("Route Params in Category Page:", params);
 
-  const category = await client.fetch(
-    categoryQuery,
-    { slug: categorySlug },
-    { cache: "no-cache" }
-  );
+  // Fetch category data including products and umbrella reference
+  const category = await client.fetch(categoryQuery, {
+    slug: categorySlug,
+  });
 
-  console.log("Fetched Category in Category Page:", category);
-
+  // Fallback to 404 if category is missing or URL mismatch
   if (!category || category.umbrellaCategory?.slug !== umbrellaSlug) {
-    console.error("Category or umbrella mismatch in Category Page:", {
-      category,
-      umbrellaSlug,
-    });
     notFound();
   }
 
@@ -67,12 +63,12 @@ export default async function CategoryPage({ params }) {
       </div>
 
       <section className="container mx-auto px-4 py-8">
-        {/* Enhanced Title */}
+        {/* Category Title */}
         <h1 className="text-5xl md:text-6xl font-extrabold text-center mb-8 text-blue-950">
           {category.title}
         </h1>
 
-        {/* Enhanced Description */}
+        {/* Optional portable description block */}
         {category.description && (
           <div className="bg-blue-950 text-gray-300 text-xl text-center rounded-lg px-6 py-4 mb-8 shadow-md">
             <PortableText value={category.description} />
@@ -85,17 +81,18 @@ export default async function CategoryPage({ params }) {
           </span>
         </div>
 
-        {/* Product Grid */}
+        {/* Product Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {category.products?.map((product) => (
             <div key={product.slug} className="card bg-base-100 shadow-xl">
               <figure className="h-48 overflow-hidden relative">
-                {product.mainImage?.url && (
+                {product.mainImage && (
                   <Image
-                    src={product.mainImage.url}
+                    src={urlFor(product.mainImage).width(600).height(400).fit("crop").url()}
                     alt={product.title}
                     fill
                     className="object-cover w-full h-full"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 )}
               </figure>

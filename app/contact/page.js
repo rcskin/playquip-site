@@ -72,10 +72,10 @@ export default function Contact() {
           <div className="bg-white shadow-lg rounded-lg p-6">
             <h2 className="text-3xl font-bold text-blue-950 mb-2">Our Office</h2>
             <p className="text-lg text-gray-700">
-              Playquip Leisure Ltd.<br />
+              Playquip Ltd.<br />
               Unit 4 - Heath Industrial Estate<br />
               Cockaynes Lane - Arlesford<br />
-              Essex CO7 8BZ, UK<br />
+              Essex CO7 8DA, UK<br />
             </p>
             <p className="mt-2 text-lg">
               📞 <strong>Phone:</strong> +44 01206 825869<br />

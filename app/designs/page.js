@@ -75,7 +75,7 @@ export default function Designs() {
           Playground Designs
         </h1>
         <p className="text-lg md:text-xl text-center text-gray-700 max-w-3xl mx-auto">
-          At Playground Ltd, we believe that a successful play experience begins
+          At Playquip we believe that a successful play experience begins
           with understanding our customers' visions. We collaborate closely to
           create innovative designs that bring play areas to life.
         </p>
