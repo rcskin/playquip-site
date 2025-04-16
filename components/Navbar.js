@@ -39,12 +39,12 @@ export default function Navbar() {
   return (
     <nav className="bg-white shadow-md">
       {/* Logo Section */}
-      <div className="container mx-auto px-8 py-8 flex justify-center">
+      <div className="container mx-auto px-2 py-2 flex justify-center">
         <Link href="/">
           <img
-            src="/images/playquip_logo.jpg"
+            src="/images/playquip_logo2.jpg"
             alt="Playquip Logo"
-            className="h-12"
+            className="h-48"
             data-testid="logo"
           />
         </Link>
