@@ -70,14 +70,14 @@ export default function WishList() {
 
   return (
     <main className="min-h-screen bg-gray-100 container mx-auto px-6 py-12">
-      <h1 className="text-5xl font-bold text-blue-700 mb-8 text-center">
+      <h1 className="text-5xl font-bold text-blue-950 mb-8 text-center">
         Your Wish List
       </h1>
 
       {WishList.length === 0 ? (
         <p className="text-center text-gray-500 text-lg">
           Your Wish List is empty.{" "}
-          <Link href="/products" className="text-blue-700 font-semibold">
+          <Link href="/products" className="text-orange-500 font-semibold">
             Add items
           </Link>{" "}
           to your Wish List to save them!

@@ -1,6 +1,7 @@
 //about page
- 
+
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = {
   title: "About Us - Playquip Leisure",
@@ -51,72 +52,58 @@ export default function AboutUs() {
         </div>
       </section>
 
-      {/* Section 2: Our Design Philosophy
-      <section className="container mx-auto h-96 px-4 py-12">
+      {/* Section 2: Our Design Philosophy */}
+      <section className="container mx-auto px-4 py-12">
         <h2 className="text-5xl font-bold text-center text-blue-950 mb-4">
           Our Design Philosophy
         </h2>
-        <p className="text-xl text-gray-700 text-center max-w-4xl mx-auto">
+        <p className="text-xl text-gray-700 text-center max-w-4xl mx-auto mb-8">
           We believe that every play area should be unique, reflecting the needs
           and imagination of the community it serves. Our designs are crafted
           with safety, sustainability, and fun in mind. From bold concepts to
           carefully selected materials, we strive to create spaces that foster
           creativity and exploration.
         </p>
-      </section> */}
-      {/* Section 2: Our Design Philosophy */}
-<section className="container mx-auto px-4 py-12">
-  <h2 className="text-5xl font-bold text-center text-blue-950 mb-4">
-    Our Design Philosophy
-  </h2>
-  <p className="text-xl text-gray-700 text-center max-w-4xl mx-auto mb-8">
-    We believe that every play area should be unique, reflecting the needs
-    and imagination of the community it serves. Our designs are crafted
-    with safety, sustainability, and fun in mind. From bold concepts to
-    carefully selected materials, we strive to create spaces that foster
-    creativity and exploration.
-  </p>
 
-  {/* Images Row */}
-  <div className="grid grid-cols-3 sm:gap-6 lg:gap-2">
-    {/* Safety */}
-    <div className="flex justify-center">
-      <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40">
-        <Image
-          src="/images/safety.png"
-          alt="Safety"
-          fill
-          className="object-contain"
-        />
-      </div>
-    </div>
+        {/* Images Row */}
+        <div className="grid grid-cols-3 sm:gap-6 lg:gap-2">
+          {/* Safety */}
+          <div className="flex justify-center">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40">
+              <Image
+                src="/images/safety.png"
+                alt="Safety"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
 
-    {/* Sustainability */}
-    <div className="flex justify-center">
-      <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40">
-        <Image
-          src="/images/sustainability.png"
-          alt="Sustainability"
-          fill
-          className="object-contain"
-        />
-      </div>
-    </div>
+          {/* Sustainability */}
+          <div className="flex justify-center">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40">
+              <Image
+                src="/images/sustainability.png"
+                alt="Sustainability"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
 
-    {/* Fun */}
-    <div className="flex justify-center">
-      <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40">
-        <Image
-          src="/images/fun.png"
-          alt="Fun"
-          fill
-          className="object-contain"
-        />
-      </div>
-    </div>
-  </div>
-</section>
-
+          {/* Fun */}
+          <div className="flex justify-center">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40">
+              <Image
+                src="/images/fun.png"
+                alt="Fun"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Section 3: What We Offer */}
       <section className="bg-blue-950 text-gray-300 py-12">
@@ -172,6 +159,12 @@ export default function AboutUs() {
             visionary designs awaiting their perfect home. Be inspired by the
             possibilities of what we can create together.
           </p>
+          <Link
+            href={"/designs"}
+            className="btn bg-blue-950 text-white hover:bg-orange-500 mt-4"
+          >
+            Explore Designs
+          </Link>
         </div>
       </section>
     </main>
