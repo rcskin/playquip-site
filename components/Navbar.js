@@ -1,3 +1,5 @@
+//Nav bar component
+
 "use client";
 
 import { useState } from "react";
@@ -9,27 +11,47 @@ export default function Navbar() {
   const menuItems = (
     <>
       <li className="md:inline-block">
-        <Link href="/about" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
+        <Link
+          href="/about"
+          onClick={() => setIsMenuOpen(false)}
+          className="block py-2 md:py-2 md:px-4 text-blue-950 font-semibold sm:text-lg md:text-xl"
+        >
           About Us
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/products" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
+        <Link
+          href="/products"
+          onClick={() => setIsMenuOpen(false)}
+          className="block py-2 md:py-2 md:px-4 text-blue-950 font-semibold sm:text-lg md:text-xl"
+        >
           Products
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/services" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
+        <Link
+          href="/services"
+          onClick={() => setIsMenuOpen(false)}
+          className="block py-2 md:py-2 md:px-4 text-blue-950 font-semibold sm:text-lg md:text-xl"
+        >
           Services
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/designs" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
+        <Link
+          href="/designs"
+          onClick={() => setIsMenuOpen(false)}
+          className="block py-2 md:py-2 md:px-4 text-blue-950 font-semibold sm:text-lg md:text-xl"
+        >
           Designs
         </Link>
       </li>
       <li className="md:inline-block">
-        <Link href="/contact" className="block py-2 md:py-2 md:px-4 text-xl text-blue-950 font-semibold">
+        <Link
+          href="/contact"
+          onClick={() => setIsMenuOpen(false)}
+          className="block py-2 md:py-2 md:px-4 text-blue-950 font-semibold sm:text-lg md:text-xl"
+        >
           Contact
         </Link>
       </li>
@@ -86,23 +108,29 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Menu Items */}
-          <ul className="md:flex md:justify-center md:items-center w-full relative text-blue-950">
-            {/* Mobile menu toggling */}
-            <div 
-              className={`md:flex md:gap-6 ${isMenuOpen ? "block" : "hidden"} md:block`}
-              data-testid="mobile-menu"
-            >
-              {menuItems}
-            </div>
 
-            {/* Wish List aligned to the far right on desktop, inside menu on mobile */}
-            <li className={`md:absolute md:right-0 ${isMenuOpen ? "block" : "hidden"} md:block`}>
-              <Link href="/wishlist" className="flex items-center gap-2 text-xl text-blue-950 font-semibold" data-testid="wishlist-link">
+          {/* Menu Container */}
+           <div
+            className={`w-full ${isMenuOpen ? "block" : "hidden"} md:flex md:items-center md:relative`}
+          >
+            {/* Menu items centered */}
+            <ul className="flex flex-col md:flex-row justify-center w-full text-blue-950">
+              {menuItems}
+            </ul> 
+
+            {/* Wish List pushed to the far right on desktop and justify-left on mobile */}
+            <div className={`mt-2 md:mt-0 ${isMenuOpen ? "block" : "hidden"} md:block md:absolute md:right-2 flex justify-start`}>
+
+              <Link
+                href="/wishlist"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-2 text-base sm:text-lg md:text-xl text-blue-950 font-semibold"
+                data-testid="wishlist-link"
+              >
                 Wish List
               </Link>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

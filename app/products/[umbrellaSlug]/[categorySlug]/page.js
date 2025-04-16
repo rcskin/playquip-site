@@ -70,7 +70,7 @@ export default async function CategoryPage({ params }) {
 
         {/* Optional portable description block */}
         {category.description && (
-          <div className="bg-blue-950 text-gray-300 text-xl text-center rounded-lg px-6 py-4 mb-8 shadow-md">
+          <div className="text-blue-950 text-xl text-center rounded-lg px-6 py-4 mb-8 shadow-md">
             <PortableText value={category.description} />
           </div>
         )}
